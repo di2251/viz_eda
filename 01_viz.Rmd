@@ -1,0 +1,65 @@
+---
+title: "01_viz"
+author: "di2251"
+date: "2026-10-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(ggridges)
+library(p8105.datasets)
+
+data("weather_df")
+
+view(weather_df)
+```
+
+## Basic Scatterplot
+
+*NOTE: if you don't add any 'geoms' the scatterplot will be blank
+
+```{r}
+ggplot(weather_df, aes(x = tmin, y = tmax)) +
+  geom_point()
+```
+
+```{r}
+weather_df |>
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_point()
+```
+
+## Advanced Scatterplot
+
+```{r}
+weather_df |>
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_point(aes(color = name))
+```
+
+```{r}
+weather_df |>
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_point(aes(color = name), alpha = .5) +
+  geom_smooth(se = FALSE)
+```
+
+```{r}
+weather_df |>
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5) +
+  geom_smooth(se = FALSE) +
+  facet_grid(. ~ name)
+```
+
+```{r}
+weather_df |>
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_point(aes(size = prcp), alpha = .5) +
+  geom_smooth(se = FALSE) + 
+  facet_grid(. ~ name)
+```
+
