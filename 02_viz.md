@@ -1,11 +1,9 @@
----
-title: "02_viz"
-author: "di2251"
-date: "2026-10-06"
-output: github_document
----
+02_viz
+================
+di2251
+2026-10-06
 
-```{r setup, message=FALSE}
+``` r
 library(tidyverse)
 library(patchwork)
 library(wesanderson)
@@ -16,17 +14,20 @@ data("weather_df")
 
 Revisit scatterplot
 
-```{r, warning=FALSE}
+``` r
 weather_df |>
   ggplot(aes(x = tmin, y = tmax)) +
   geom_point(aes(color = name), alpha = .5)
 ```
 
+![](02_viz_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+
 ### Labels
 
-Provide informative axis labels, plot titles, and captions using `labs()`
+Provide informative axis labels, plot titles, and captions using
+`labs()`
 
-```{r, warning=FALSE}
+``` r
 weather_df |>
   ggplot(aes(x = tmin, y = tmax)) +
   geom_point(aes(color = name), alpha = .5) +
@@ -39,9 +40,11 @@ weather_df |>
   )
 ```
 
+![](02_viz_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
 ### Scales
 
-```{r, warning=FALSE}
+``` r
 weather_df |>
   ggplot(aes(x = tmin, y = tmax)) +
   geom_point(aes(color = name), alpha = .5) +
@@ -59,9 +62,11 @@ weather_df |>
     position = "right")
 ```
 
+![](02_viz_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
 Color adjusting
 
-```{r, warning=FALSE}
+``` r
 weather_df |> 
   ggplot(aes(x = tmin, y = tmax)) + 
   geom_point(aes(color = name), alpha = .5) + 
@@ -74,9 +79,11 @@ weather_df |>
   scale_color_hue(h = c(100, 300))
 ```
 
+![](02_viz_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
 Use `viridis` package color palette
 
-```{r, warning=FALSE}
+``` r
 ggp_temp_plot = 
   weather_df |> 
   ggplot(aes(x = tmin, y = tmax)) + 
@@ -96,11 +103,14 @@ ggp_temp_plot =
 ggp_temp_plot
 ```
 
-Use `discrete = TRUE` because the `color` aesthetic is mapped to a discrete variable 
+![](02_viz_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+Use `discrete = TRUE` because the `color` aesthetic is mapped to a
+discrete variable
 
 ### Themes
 
-```{r, warning=FALSE}
+``` r
 weather_df |>
   ggplot(aes(x = tmin, y = tmax, color = name)) +
   geom_point() +
@@ -109,12 +119,22 @@ weather_df |>
     discrete = TRUE
   ) +
   theme_classic()
+```
+
+![](02_viz_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+``` r
   theme(legend.position = "bottom")
 ```
 
+    ## <theme> List of 1
+    ##  $ legend.position: chr "bottom"
+    ##  @ complete: logi FALSE
+    ##  @ validate: logi TRUE
+
 ### Setting options
 
-```{r, warning=FALSE}
+``` r
 weather_df |>
   ggplot(aes(x = date, y = tmax, color = name)) +
   geom_point(aes(size = prcp), alpha = .5) +
@@ -135,9 +155,13 @@ weather_df |>
   theme(legend.position = "bottom")
 ```
 
-Multiple panels with different plot types. 
+    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-```{r}
+![](02_viz_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+Multiple panels with different plot types.
+
+``` r
 ggp_tmax_tmin = 
   weather_df |>
   ggplot(aes(x = tmin, y = tmax, color = name)) +
@@ -160,3 +184,9 @@ ggp_seasonal =
 (ggp_tmax_tmin + ggp_prcp_density) / ggp_seasonal
 ```
 
+    ## Warning: Removed 17 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+    ## Removed 17 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](02_viz_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
