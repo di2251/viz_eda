@@ -63,3 +63,23 @@ weather_df |>
   facet_grid(. ~ name)
 ```
 
+## Odds and Ends
+
+```{r}
+weather_df |>
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_smooth(se = FALSE)
+```
+
+```{r}
+weather_df |>
+  ggplot(aes(x = tmax, y = tmin)) +
+  geom_hex()
+```
+
+```{r}
+weather_df |> ggplot() + geom_point(aes(x = tmax, y = tmin), colour = "blue")
+
+weather_df |> ggplot() + geom_point(aes(x = tmax, y = tmin, color = "orchid"))
+```
+
